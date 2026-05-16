@@ -345,11 +345,53 @@ body {
   word-break: break-word;
 }
 
-.post-timestamp {
+.post-footer {
   margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-timestamp {
   font-size: 11px;
   color: var(--text2);
   opacity: 0.55;
+}
+
+.btn-edit {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover { background: var(--surface2); }
+
+.foto-actual {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.foto-actual img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.quitar-foto {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--accent2);
+  cursor: pointer;
 }
 
 /* ─── NEW POST FORM ─── */

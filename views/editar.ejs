@@ -1,0 +1,74 @@
+<script>window.__protected = true;</script>
+<div class="app">
+  <header class="topbar">
+    <a href="/feed" class="btn-back" title="Volver">←</a>
+    <div class="topbar-title">Editar recuerdo</div>
+    <div style="width:40px"></div>
+  </header>
+
+  <main class="form-wrap">
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/posts/<%= post.id %>/edit" enctype="multipart/form-data">
+      <div class="field">
+        <label for="autor">¿Quién escribe?</label>
+        <input type="text" id="autor" name="autor" value="<%= post.autor %>" maxlength="100">
+      </div>
+
+      <div class="field">
+        <label for="fecha_recuerdo">Fecha del recuerdo</label>
+        <input type="date" id="fecha_recuerdo" name="fecha_recuerdo" value="<%= fecha %>" required>
+      </div>
+
+      <div class="field">
+        <label for="texto">¿Qué pasó?</label>
+        <textarea id="texto" name="texto" rows="5"><%= post.texto || '' %></textarea>
+      </div>
+
+      <div class="field">
+        <label>Foto</label>
+        <% if (post.foto_url) { %>
+          <div class="foto-actual">
+            <img src="<%= post.foto_url %>" alt="Foto actual">
+            <label class="quitar-foto">
+              <input type="checkbox" name="quitar_foto" value="1" id="quitar_foto">
+              Quitar foto
+            </label>
+          </div>
+        <% } %>
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="foto" name="foto" accept="image/*">
+          <label for="foto" class="file-label">
+            <span class="file-icon">📷</span>
+            <span id="fileText"><%= post.foto_url ? 'Reemplazar foto' : 'Agregar foto' %></span>
+          </label>
+          <img id="preview" src="" alt="Vista previa">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Guardar cambios</button>
+    </form>
+  </main>
+</div>
+
+<script>
+  const fileInput = document.getElementById('foto');
+  const preview   = document.getElementById('preview');
+  const fileText  = document.getElementById('fileText');
+  const quitarBox = document.getElementById('quitar_foto');
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    fileText.textContent = file.name;
+    if (quitarBox) quitarBox.checked = false;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      preview.src = ev.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>

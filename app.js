@@ -32,6 +32,7 @@ const requireAuth = (req, res, next) => {
 
 app.use('/feed', requireAuth);
 app.use('/nuevo', requireAuth);
+app.use('/posts', requireAuth);
 
 app.use('/', require('./routes/posts'));
 

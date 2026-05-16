@@ -38,10 +38,13 @@
             <% if (post.texto) { %>
               <p class="post-texto"><%= post.texto %></p>
             <% } %>
-            <div class="post-timestamp">
-              Guardado el <%= new Date(post.created_at).toLocaleDateString('es-MX', {
-                year: 'numeric', month: 'short', day: 'numeric'
-              }) %>
+            <div class="post-footer">
+              <span class="post-timestamp">
+                Guardado el <%= new Date(post.created_at).toLocaleDateString('es-MX', {
+                  year: 'numeric', month: 'short', day: 'numeric'
+                }) %>
+              </span>
+              <a href="/posts/<%= post.id %>/edit" class="btn-edit">Editar</a>
             </div>
           </div>
         </article>

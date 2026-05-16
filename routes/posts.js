@@ -101,4 +101,64 @@ router.post('/nuevo', upload.single('foto'), async (req, res) => {
   }
 });
 
+router.get('/posts/:id/edit', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM posts WHERE id = $1', [req.params.id]);
+    if (!rows.length) return res.redirect('/feed');
+    const post = rows[0];
+    const fecha = post.fecha_recuerdo
+      ? new Date(post.fecha_recuerdo).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0];
+    res.render('editar', { post, fecha, error: null });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/feed');
+  }
+});
+
+router.post('/posts/:id/edit', upload.single('foto'), async (req, res) => {
+  const { autor, texto, fecha_recuerdo, quitar_foto } = req.body;
+  const id = req.params.id;
+
+  try {
+    const { rows } = await pool.query('SELECT foto_url FROM posts WHERE id = $1', [id]);
+    if (!rows.length) return res.redirect('/feed');
+    let foto_url = rows[0].foto_url;
+
+    if (req.file) {
+      if (foto_url) deleteFromCloudinary(foto_url);
+      const result = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: 'aventuras-raras', resource_type: 'image' },
+          (err, result) => (err ? reject(err) : resolve(result))
+        ).end(req.file.buffer);
+      });
+      foto_url = result.secure_url;
+    } else if (quitar_foto === '1') {
+      if (foto_url) deleteFromCloudinary(foto_url);
+      foto_url = null;
+    }
+
+    await pool.query(
+      'UPDATE posts SET autor=$1, texto=$2, foto_url=$3, fecha_recuerdo=$4 WHERE id=$5',
+      [autor || 'Anónimo', texto || null, foto_url, fecha_recuerdo, id]
+    );
+    res.redirect('/feed');
+  } catch (err) {
+    console.error(err);
+    const { rows } = await pool.query('SELECT * FROM posts WHERE id = $1', [id]).catch(() => ({ rows: [] }));
+    const post = rows[0] || {};
+    res.render('editar', { post, fecha: fecha_recuerdo, error: 'Error guardando cambios' });
+  }
+});
+
+function deleteFromCloudinary(url) {
+  try {
+    const parts = url.split('/upload/');
+    if (parts.length < 2) return;
+    const publicId = parts[1].replace(/^v\d+\//, '').replace(/\.[^.]+$/, '');
+    cloudinary.uploader.destroy(publicId).catch(() => {});
+  } catch {}
+}
+
 module.exports = router;
