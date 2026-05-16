@@ -44,12 +44,18 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-primary">Guardar recuerdo ✨</button>
+      <button type="submit" class="btn-primary" id="submitBtn">Guardar recuerdo ✨</button>
     </form>
   </main>
 </div>
 
 <script>
+  document.querySelector('form').addEventListener('submit', () => {
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Guardando...';
+    btn.disabled = true;
+  });
+
   const fileInput = document.getElementById('foto');
   const preview   = document.getElementById('preview');
   const fileText  = document.getElementById('fileText');

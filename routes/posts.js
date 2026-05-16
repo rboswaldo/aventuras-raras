@@ -12,8 +12,19 @@ cloudinary.config({
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 }
+  limits: { fileSize: 25 * 1024 * 1024 }
 });
+
+function handleMulterError(err, req, res, next) {
+  if (err && err.code === 'LIMIT_FILE_SIZE') {
+    const hoy = new Date().toISOString().split('T')[0];
+    return res.render('nuevo', {
+      error: 'La foto es muy grande (máximo 25MB). Intenta comprimir la imagen.',
+      hoy
+    });
+  }
+  next(err);
+}
 
 router.post('/api/verify-pin', (req, res) => {
   const { pin } = req.body;
@@ -65,7 +76,9 @@ router.get('/nuevo', (req, res) => {
   res.render('nuevo', { error: null, hoy });
 });
 
-router.post('/nuevo', upload.single('foto'), async (req, res) => {
+router.post('/nuevo', (req, res, next) => {
+  upload.single('foto')(req, res, (err) => handleMulterError(err, req, res, next));
+}, async (req, res) => {
   const { autor, texto, fecha_recuerdo } = req.body;
   let foto_url = null;
 
@@ -116,7 +129,9 @@ router.get('/posts/:id/edit', async (req, res) => {
   }
 });
 
-router.post('/posts/:id/edit', upload.single('foto'), async (req, res) => {
+router.post('/posts/:id/edit', (req, res, next) => {
+  upload.single('foto')(req, res, (err) => handleMulterError(err, req, res, next));
+}, async (req, res) => {
   const { autor, texto, fecha_recuerdo, quitar_foto } = req.body;
   const id = req.params.id;
 
