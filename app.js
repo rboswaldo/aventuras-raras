@@ -16,7 +16,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'aventuras-secreto-local',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
+  cookie: { maxAge: null }
 }));
 
 app.set('view engine', 'ejs');
