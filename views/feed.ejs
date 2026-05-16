@@ -1,0 +1,50 @@
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-title">
+      <span class="icon">📖</span>
+      <span>Aventuras Raras</span>
+    </div>
+    <div class="topbar-actions">
+      <a href="/nuevo" class="btn-fab" title="Nuevo recuerdo">+</a>
+      <a href="/logout" class="btn-logout">Salir</a>
+    </div>
+  </header>
+
+  <main class="feed">
+    <% if (posts.length === 0) { %>
+      <div class="empty">
+        <div class="empty-icon">✨</div>
+        <p>Aún no hay recuerdos aquí.<br>¡Sé el primero en escribir algo!</p>
+        <a href="/nuevo" class="btn-primary">Crear primer recuerdo</a>
+      </div>
+    <% } else { %>
+      <% posts.forEach(post => { %>
+        <article class="post-card">
+          <% if (post.foto_url) { %>
+            <div class="post-img">
+              <img src="<%= post.foto_url %>" alt="Foto del recuerdo" loading="lazy">
+            </div>
+          <% } %>
+          <div class="post-body">
+            <div class="post-meta">
+              <span class="post-autor"><%= post.autor %></span>
+              <span class="post-fecha">
+                <%= new Date(post.fecha_recuerdo).toLocaleDateString('es-MX', {
+                  year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+                }) %>
+              </span>
+            </div>
+            <% if (post.texto) { %>
+              <p class="post-texto"><%= post.texto %></p>
+            <% } %>
+            <div class="post-timestamp">
+              Guardado el <%= new Date(post.created_at).toLocaleDateString('es-MX', {
+                year: 'numeric', month: 'short', day: 'numeric'
+              }) %>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    <% } %>
+  </main>
+</div>

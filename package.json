@@ -1,0 +1,20 @@
+{
+  "name": "aventuras-raras",
+  "version": "1.0.0",
+  "description": "El diario de las cosas que no se olvidan",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "cloudinary": "^1.41.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.12.0"
+  }
+}

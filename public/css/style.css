@@ -1,0 +1,328 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0f0707;
+  --surface:  #1e0f0f;
+  --surface2: #2a1515;
+  --accent:   #c4895a;
+  --accent2:  #e85d6b;
+  --text:     #f0e6e0;
+  --text2:    #9a7070;
+  --border:   #3a2020;
+  --radius:   16px;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* ─── LOGIN ─── */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(ellipse at 50% 40%, #2d0a0a 0%, #0f0707 65%);
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 44px 32px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.diary-icon { font-size: 56px; margin-bottom: 16px; }
+
+.login-card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--text2);
+  font-size: 14px;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+/* ─── FORMS ─── */
+.field { margin-bottom: 22px; text-align: left; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text2);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.field input[type="text"],
+.field input[type="password"],
+.field input[type="date"],
+.field textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field input:focus,
+.field textarea:focus { border-color: var(--accent); }
+
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+.field input[type="date"] { color-scheme: dark; }
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  display: block;
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.2px;
+}
+
+.btn-primary:active { opacity: 0.8; transform: scale(0.98); }
+
+/* ─── ERROR ─── */
+.error {
+  background: rgba(232, 93, 107, 0.12);
+  border: 1px solid rgba(232, 93, 107, 0.35);
+  border-radius: 10px;
+  padding: 13px 16px;
+  color: #e85d6b;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+/* ─── APP SHELL ─── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 7, 7, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  gap: 12px;
+}
+
+.topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  flex: 1;
+  justify-content: center;
+}
+
+.topbar-title .icon { font-size: 22px; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-fab {
+  background: var(--accent);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn-logout {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+.btn-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 24px;
+  padding: 4px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── FEED ─── */
+.feed {
+  padding: 20px 16px 40px;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.empty {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text2);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 20px; }
+.empty p { margin-bottom: 28px; line-height: 1.8; font-size: 15px; }
+
+/* ─── POST CARD ─── */
+.post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.post-img img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-body { padding: 18px 20px 16px; }
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.post-autor {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.post-fecha {
+  color: var(--text2);
+  font-size: 13px;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.post-texto {
+  line-height: 1.75;
+  font-size: 15px;
+  white-space: pre-wrap;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.post-timestamp {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--text2);
+  opacity: 0.55;
+}
+
+/* ─── NEW POST FORM ─── */
+.form-wrap {
+  padding: 24px 20px 48px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ─── FILE UPLOAD ─── */
+.file-drop {
+  background: var(--surface2);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.file-drop:hover { border-color: var(--accent); }
+
+.file-drop input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 20px;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 14px;
+}
+
+.file-icon { font-size: 34px; }
+
+#preview {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: none;
+  border-top: 1px solid var(--border);
+}

@@ -1,0 +1,67 @@
+<div class="app">
+  <header class="topbar">
+    <a href="/feed" class="btn-back" title="Volver">←</a>
+    <div class="topbar-title">Nuevo recuerdo</div>
+    <div style="width:40px"></div>
+  </header>
+
+  <main class="form-wrap">
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/nuevo" enctype="multipart/form-data">
+      <div class="field">
+        <label for="autor">¿Quién escribe?</label>
+        <input type="text" id="autor" name="autor" placeholder="Tu nombre" maxlength="100">
+      </div>
+
+      <div class="field">
+        <label for="fecha_recuerdo">Fecha del recuerdo</label>
+        <input type="date" id="fecha_recuerdo" name="fecha_recuerdo" value="<%= hoy %>" required>
+      </div>
+
+      <div class="field">
+        <label for="texto">¿Qué pasó?</label>
+        <textarea
+          id="texto"
+          name="texto"
+          rows="5"
+          placeholder="Escribe lo que quieras recordar..."
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label>Foto (opcional)</label>
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="foto" name="foto" accept="image/*">
+          <label for="foto" class="file-label">
+            <span class="file-icon">📷</span>
+            <span id="fileText">Toca para agregar una foto</span>
+          </label>
+          <img id="preview" src="" alt="Vista previa">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Guardar recuerdo ✨</button>
+    </form>
+  </main>
+</div>
+
+<script>
+  const fileInput = document.getElementById('foto');
+  const preview   = document.getElementById('preview');
+  const fileText  = document.getElementById('fileText');
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    fileText.textContent = file.name;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      preview.src = ev.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>

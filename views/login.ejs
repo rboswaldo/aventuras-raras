@@ -1,0 +1,26 @@
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="diary-icon">📖</div>
+    <h1>Aventuras Raras</h1>
+    <p class="subtitle">El diario de las cosas que no se olvidan</p>
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+    <form method="POST" action="/login">
+      <div class="field">
+        <label for="pin">PIN secreto</label>
+        <input
+          type="password"
+          id="pin"
+          name="pin"
+          placeholder="••••••"
+          autocomplete="off"
+          inputmode="numeric"
+          required
+          autofocus
+        >
+      </div>
+      <button type="submit" class="btn-primary">Entrar al diario</button>
+    </form>
+  </div>
+</div>

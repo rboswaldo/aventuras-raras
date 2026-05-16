@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#2d0a0a"/>
+  <!-- Book spine -->
+  <rect x="48" y="42" width="96" height="112" rx="8" fill="#c4895a"/>
+  <rect x="48" y="42" width="22" height="112" rx="6" fill="#a06840"/>
+  <!-- Text lines -->
+  <rect x="84" y="68" width="46" height="7" rx="3.5" fill="#fff" opacity="0.85"/>
+  <rect x="84" y="85" width="38" height="7" rx="3.5" fill="#fff" opacity="0.6"/>
+  <rect x="84" y="102" width="42" height="7" rx="3.5" fill="#fff" opacity="0.6"/>
+  <!-- Heart -->
+  <path d="M96 142 C90 136 74 126 74 114 C74 107 80 103 87 107 C91 109 94 113 96 116 C98 113 101 109 105 107 C112 103 118 107 118 114 C118 126 102 136 96 142Z" fill="#e85d6b"/>
+</svg>
