@@ -12,6 +12,13 @@
   </header>
 
   <main class="feed">
+  <script>
+    document.addEventListener('submit', (e) => {
+      if (e.target.classList.contains('form-delete')) {
+        if (!confirm('¿Borrar este recuerdo? No se puede deshacer.')) e.preventDefault();
+      }
+    });
+  </script>
     <% if (posts.length === 0) { %>
       <div class="empty">
         <div class="empty-icon">✨</div>
@@ -44,7 +51,12 @@
                   year: 'numeric', month: 'short', day: 'numeric'
                 }) %>
               </span>
-              <a href="/posts/<%= post.id %>/edit" class="btn-edit">Editar</a>
+              <div class="post-actions">
+                <a href="/posts/<%= post.id %>/edit" class="btn-edit">Editar</a>
+                <form method="POST" action="/posts/<%= post.id %>/delete" class="form-delete">
+                  <button type="submit" class="btn-delete">Borrar</button>
+                </form>
+              </div>
             </div>
           </div>
         </article>

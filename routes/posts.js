@@ -167,6 +167,17 @@ router.post('/posts/:id/edit', (req, res, next) => {
   }
 });
 
+router.post('/posts/:id/delete', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT foto_url FROM posts WHERE id = $1', [req.params.id]);
+    if (rows.length && rows[0].foto_url) deleteFromCloudinary(rows[0].foto_url);
+    await pool.query('DELETE FROM posts WHERE id = $1', [req.params.id]);
+  } catch (err) {
+    console.error(err);
+  }
+  res.redirect('/feed');
+});
+
 function deleteFromCloudinary(url) {
   try {
     const parts = url.split('/upload/');
