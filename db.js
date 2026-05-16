@@ -1,9 +1,10 @@
 require('dotenv').config();
 const { Pool } = require('pg');
 
+const isInternal = process.env.DATABASE_URL?.includes('.internal');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  ssl: isInternal ? false : (process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false)
 });
 
 async function initDB() {

@@ -36,11 +36,8 @@ app.use('/posts', requireAuth);
 
 app.use('/', require('./routes/posts'));
 
-initDB().then(() => {
-  app.listen(PORT, () =>
-    console.log(`Aventuras Raras corriendo en http://localhost:${PORT}`)
-  );
-}).catch(err => {
-  console.error('Error iniciando DB:', err);
-  process.exit(1);
-});
+app.listen(PORT, () =>
+  console.log(`Aventuras Raras corriendo en http://localhost:${PORT}`)
+);
+
+initDB().catch(err => console.error('Error iniciando DB:', err));
