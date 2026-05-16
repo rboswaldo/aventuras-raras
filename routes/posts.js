@@ -15,6 +15,15 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
+router.post('/api/verify-pin', (req, res) => {
+  const { pin } = req.body;
+  if (pin === process.env.DIARY_PIN) {
+    req.session.authenticated = true;
+    return res.json({ ok: true });
+  }
+  res.json({ ok: false });
+});
+
 router.get('/', (req, res) => {
   if (req.session.authenticated) return res.redirect('/feed');
   res.redirect('/login');

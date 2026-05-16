@@ -16,9 +16,87 @@
 </head>
 <body>
   <%- body %>
+  <!-- PIN overlay para páginas protegidas -->
+  <div id="pin-overlay" role="dialog" aria-modal="true">
+    <div class="overlay-card">
+      <div class="diary-icon">🔒</div>
+      <p class="overlay-title">Aventuras Raras</p>
+      <p class="overlay-sub">Ingresa el PIN para continuar</p>
+      <div id="overlay-error" class="error" style="display:none">PIN incorrecto</div>
+      <form id="overlay-form" autocomplete="off">
+        <input
+          id="overlay-pin"
+          type="password"
+          inputmode="numeric"
+          placeholder="••••••"
+          autocomplete="new-password"
+          data-lpignore="true"
+          data-form-type="other"
+          maxlength="20"
+          required
+        >
+        <button type="submit">Continuar</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js');
+    }
+
+    if (window.__protected) {
+      const overlay  = document.getElementById('pin-overlay');
+      const form     = document.getElementById('overlay-form');
+      const input    = document.getElementById('overlay-pin');
+      const errMsg   = document.getElementById('overlay-error');
+      let   timer;
+
+      function showOverlay() {
+        overlay.classList.add('visible');
+        input.value = '';
+        errMsg.style.display = 'none';
+        setTimeout(() => input.focus(), 100);
+      }
+
+      function hideOverlay() {
+        overlay.classList.remove('visible');
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearTimeout(timer);
+        timer = setTimeout(showOverlay, 10000);
+      }
+
+      ['click','touchstart','keydown','scroll'].forEach(e =>
+        document.addEventListener(e, resetTimer, { passive: true })
+      );
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const pin = input.value;
+        input.value = '';
+        try {
+          const r    = await fetch('/api/verify-pin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin })
+          });
+          const data = await r.json();
+          if (data.ok) {
+            hideOverlay();
+          } else {
+            errMsg.style.display = 'block';
+            setTimeout(() => input.focus(), 50);
+          }
+        } catch {
+          errMsg.textContent = 'Error de red, intenta de nuevo';
+          errMsg.style.display = 'block';
+        }
+      });
+
+      resetTimer();
     }
   </script>
 </body>
