@@ -4,8 +4,8 @@
   "description": "El diario de las cosas que no se olvidan",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f0707",
-  "theme_color": "#0f0707",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
   "orientation": "portrait-primary",
   "icons": [
     {

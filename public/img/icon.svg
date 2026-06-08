@@ -1,12 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="40" fill="#2d0a0a"/>
-  <!-- Book spine -->
-  <rect x="48" y="42" width="96" height="112" rx="8" fill="#c4895a"/>
-  <rect x="48" y="42" width="22" height="112" rx="6" fill="#a06840"/>
-  <!-- Text lines -->
-  <rect x="84" y="68" width="46" height="7" rx="3.5" fill="#fff" opacity="0.85"/>
-  <rect x="84" y="85" width="38" height="7" rx="3.5" fill="#fff" opacity="0.6"/>
-  <rect x="84" y="102" width="42" height="7" rx="3.5" fill="#fff" opacity="0.6"/>
-  <!-- Heart -->
-  <path d="M96 142 C90 136 74 126 74 114 C74 107 80 103 87 107 C91 109 94 113 96 116 C98 113 101 109 105 107 C112 103 118 107 118 114 C118 126 102 136 96 142Z" fill="#e85d6b"/>
+  <rect width="192" height="192" rx="24" fill="#0a0a0a"/>
+  <rect x="4" y="4" width="184" height="184" rx="20" fill="none" stroke="#FFD700" stroke-width="4"/>
+  <!-- Bat wings and body -->
+  <path d="
+    M96 72
+    C96 72 86 65 74 65
+    C60 65 46 54 40 58
+    C34 62 48 76 58 80
+    C50 84 40 96 44 101
+    C48 106 62 97 68 91
+    C72 87 78 85 84 86
+    C87 87 90 96 96 101
+    C102 96 105 87 108 86
+    C114 85 120 87 124 91
+    C130 97 144 106 148 101
+    C152 96 142 84 134 80
+    C144 76 158 62 152 58
+    C146 54 132 65 118 65
+    C106 65 96 72 96 72Z
+  " fill="#FFD700"/>
+  <!-- Left ear -->
+  <path d="M74 65 L62 42 L86 62Z" fill="#FFD700"/>
+  <!-- Right ear -->
+  <path d="M118 65 L130 42 L106 62Z" fill="#FFD700"/>
+  <!-- Bat head circle -->
+  <circle cx="96" cy="87" r="10" fill="#FFD700"/>
+  <!-- Eyes -->
+  <circle cx="91" cy="85" r="2.5" fill="#0a0a0a"/>
+  <circle cx="101" cy="85" r="2.5" fill="#0a0a0a"/>
 </svg>
